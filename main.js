@@ -39,10 +39,25 @@ const displayAiMethod = (methods,dataLimit) =>{
         </div>
         `;
         aiMethodContainer.appendChild(methodDiv);
-    })
+    });
+    //stop loader
+    toggleSpinner(false);
+
 }
 
 document.getElementById('btn-show-all').addEventListener('click',function(){
+    //start loader
+     toggleSpinner(true);
      loadAiMethod(12);
 })
+
+const toggleSpinner = isLoading =>{
+  const loaderSection = document.getElementById('loader');
+  if(isLoading){
+    loaderSection.classList.remove('d-none');
+  }
+  else{
+    loaderSection.classList.add('d-none');
+  }
+}
 loadAiMethod();
