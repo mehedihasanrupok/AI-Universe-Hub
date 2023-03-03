@@ -1,16 +1,25 @@
 
-const loadAiMethod = async() =>{
+const loadAiMethod = async(dataLimit) =>{
     const url = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(url);
     const data = await res.json();
-    displayAiMethod(data.data.tools);
+    displayAiMethod(data.data.tools,dataLimit);
 }
 
-const displayAiMethod = methods =>{
+const displayAiMethod = (methods,dataLimit) =>{
     // console.log(method);
     const aiMethodContainer = document.getElementById('ai-container');
-    methods = methods.slice(0, 6);
+    aiMethodContainer.textContent='';
 
+    //show-all button clicked
+    const showAll = document.getElementById('show-all');
+    if(dataLimit == 12){
+      showAll.classList.add('d-none');
+    }
+    else{
+      methods = methods.slice(0,6);
+    }
+    
     //Display AI Methods
     methods.forEach(method =>{
         const methodDiv = document.createElement('div');
@@ -32,4 +41,8 @@ const displayAiMethod = methods =>{
         aiMethodContainer.appendChild(methodDiv);
     })
 }
+
+document.getElementById('btn-show-all').addEventListener('click',function(){
+     loadAiMethod(12);
+})
 loadAiMethod();
