@@ -31,10 +31,16 @@ const displayAiMethod = (methods,dataLimit) =>{
           <h5 class="card-title">Features</h5>
           <p class="card-text">1.${method.features[0]}<br>2.${method.features[1]}<br>3.${method.features[2]}</p>
         </div>
-        <div class="card-footer">
-          <small class="fw-bold d-block">${method.name}</small>
-          <small class="fw-normal">${method.published_in}</small>
+        <div class="card-footer d-flex justify-content-between">
+        <div>
+        <small class="fw-bold d-block">${method.name}</small>
+        <small class="d-inline fw-normal"><i class="m-1 fa-solid fa-calendar-days"></i>${method.published_in}</small>
         </div>
+        <div>
+        <button class="d-inline fw-bold bg-info rounded-circle"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        </div>
+        
         </div>
         </div>
         `;
