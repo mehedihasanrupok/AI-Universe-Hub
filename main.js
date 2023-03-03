@@ -23,13 +23,17 @@ const displayAiMethod = (methods,dataLimit) =>{
     //Display AI Methods
     methods.forEach(method =>{
         const methodDiv = document.createElement('div');
+
+
+      //chilo <p class="card-text"></p> ;;0.${features.join('<br>')}  1.${method.features[0]}<br>2.${method.features[1]}<br>3.${method.features[2]}
+
         methodDiv.classList.add('col');
         methodDiv.innerHTML =`
         <div class="card h-100">
         <img src="${method.image}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Features</h5>
-          <p class="card-text">1.${method.features[0]}<br>2.${method.features[1]}<br>3.${method.features[2]}</p>
+          <p>${method.features.map(feature => `<li type="1" class="text-dark-emphasis">${feature}</li>`).join('')}</p>
         </div>
         <div class="card-footer d-flex justify-content-between">
         <div>
