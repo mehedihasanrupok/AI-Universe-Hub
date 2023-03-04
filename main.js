@@ -24,9 +24,6 @@ const displayAiMethod = (methods,dataLimit) =>{
     methods.forEach(method =>{
         const methodDiv = document.createElement('div');
 
-
-      //chilo <p class="card-text"></p> ;;0.${features.join('<br>')}  1.${method.features[0]}<br>2.${method.features[1]}<br>3.${method.features[2]}
-
         methodDiv.classList.add('col');
         methodDiv.innerHTML =`
         <div class="card h-100">
@@ -148,8 +145,8 @@ const displayMethodDetails = method =>{
     </div>
     <div class="col">
         <div class="card h-100">
-            <img src="${method.image_link[0]}" class="m-3 rounded-3" alt="...">
-            <button type="button" class="btn btn-danger btn-sm">${method.accuracy.score * 100}&percnt; accuracy</button>
+            <img src="${method.image_link[0]}" class="m-3 rounded-3 position-relative" alt="...">       
+            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-4">${method.accuracy.score * 100}&percnt; accuracy</button>
             <div class="card-body h-25">
                 <h5 class="card-title text-center fw-bold">
                     ${method.input_output_examples ? method.input_output_examples[0].input : 'Can you give any example?'}
@@ -162,5 +159,14 @@ const displayMethodDetails = method =>{
     </div>
     `;
 }
+
+//sort dates
+document.getElementById('sort-button').addEventListener('click',function(){
+   
+
+})
+
 loadAiMethod();
+
+// <button type="button" class="btn btn-danger btn-sm">${method.accuracy.score * 100}&percnt; accuracy</button>
 
