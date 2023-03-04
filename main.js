@@ -11,6 +11,7 @@ const displayAiMethod = (methods,dataLimit) =>{
     const aiMethodContainer = document.getElementById('ai-container');
     aiMethodContainer.textContent='';
 
+
     //show-all button clicked
     const showAll = document.getElementById('show-all');
     if(dataLimit == 12){
@@ -23,7 +24,7 @@ const displayAiMethod = (methods,dataLimit) =>{
     //Display AI Methods
     methods.forEach(method =>{
         const methodDiv = document.createElement('div');
-
+    
         methodDiv.classList.add('col');
         methodDiv.innerHTML =`
         <div class="card h-100">
@@ -160,13 +161,112 @@ const displayMethodDetails = method =>{
     `;
 }
 
+const sorting =(a,b)=>{
+    const dateA = new Date(a.published_in);
+    const dateB = new Date(b.published_in);
+   
+    if(dateA>dateB){
+        return 1;
+    }
+    else if(dateB>dateA){
+        return -1;
+    }
+    else{
+        return 0;
+    }
+
+}
+
+
 //sort dates
 document.getElementById('sort-button').addEventListener('click',function(){
-   
 
-})
+    const loadAiMethod1 = async(dataLimit) =>{
+        const url = `https://openapi.programming-hero.com/api/ai/tools`;
+        const res = await fetch(url);
+        const data = await res.json();
+        displayAiMethod(data.data.tools,dataLimit);
+    }
+    
+    const displayAiMethod = (methods,dataLimit) =>{
+        // console.log(method);
+//         for (const value of parsedData.published_in){
+//             publishDate.push(value);     
+//     }
+//  })
+        const aiMethodContainer = document.getElementById('ai-container');
+        aiMethodContainer.textContent='';
+    
+    
+        //show-all button clicked
+        const showAll = document.getElementById('show-all');
+        // if(dataLimit == 12){
+        //   showAll.classList.add('d-none');
+        // }
+        // else{
+        //   methods = methods.slice(0,6);
+        // }
+        
+        
+        //publish date array
+        let publishDate = [];
+        methods.forEach(publish => {               
+             publishDate.push(publish.published_in);             
+         })
+        
+        console.log(publishDate);
+        publishDate.sort(function(a, b){
+            var aa = a.split('/').reverse().join(),
+                bb = b.split('/').reverse().join();
+            return aa < bb ? -1 : (aa > bb ? 1 : 0);
+        });
+        console.log(publishDate);
+        let publishId =[];
+        methods.forEach(publish => {               
+            for(let i= 0;i<publishDate.length;i++){
+                if(publishDate[i]==publish.published_in){
+                    publishId[i]= publish.id;
+                }
+            }            
+        })
+        console.log(publishId);
+         let count=-1;
+        methods.forEach(method => {               
+            const methodDiv = document.createElement('div');
+    
+            methodDiv.classList.add('col');
+            methodDiv.innerHTML =`
+            <div class="card h-100">
+            <img src="${method.image}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Features</h5>
+              <p>${method.features.map(feature => `<li type="1" class="text-dark-emphasis">${feature}</li>`).join('')}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+            <div>
+            <small class="fw-bold d-block">${method.name}</small>
+            <small class="d-inline fw-normal"><i class="m-1 fa-solid fa-calendar-days"></i>${method.published_in}</small>
+            </div>
+            <div>
+            <button onclick="loadDetails('${method.id}')" class="d-inline fw-bold bg-info rounded-circle" data-bs-toggle="modal" data-bs-target="#methodDetailModal"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            </div>
+            
+            </div>
+            </div>
+            `;
+            aiMethodContainer.appendChild(methodDiv);
+        })
+        
+          
+          
+        //Display AI Methods
+    } 
+      loadAiMethod1();
+
+        }
+    );
+
 
 loadAiMethod();
-
-// <button type="button" class="btn btn-danger btn-sm">${method.accuracy.score * 100}&percnt; accuracy</button>
 
